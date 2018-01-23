@@ -1,0 +1,90 @@
+<!doctype HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../css/normalize.css" type="text/css" rel="stylesheet">
+    <link href="../css/styles.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/yhx6ato.css">
+    <title>palette picker</title>
+  </head>
+  <body>
+
+    <header>
+      <h1>palette picker</h1>
+      <div class="header-inputs">
+        <input class="new-project-input" placeholder="create new project"></input>
+        <button class="header-button">save</button>
+      </div>
+    </header>
+
+    <main>
+      <div class="color-1 main-colors">
+        <p>lock icon</p>
+        <p class="hex-value">#d3d3d3</p>
+      </div>
+      <div class="color-2 main-colors">
+        <p>lock icon</p>
+        <p class="hex-value">#c3c3c3</p>
+      </div>
+      <div class="color-3 main-colors">
+        <p>lock icon</p>
+        <p class="hex-value">#c3c3c3</p>
+      </div>
+      <div class="color-4 main-colors">
+        <p>lock icon</p>
+        <p class="hex-value">#b3b3b3</p>
+      </div>
+      <div class="color-5 main-colors">
+        <p>lock icon</p>
+        <p class="hex-value">#a3a3a3</p>
+      </div>
+    </main>
+
+    <article class="button-container">
+      <button class="generate-button">GENERATE NEW COLORS</button>
+      <button class="save-palette-button">SAVE THIS PALETTE</button>
+    </article>
+
+    <section class="bottom-section-container">
+   <!--    <article class="project-block">
+        <input class="project-block-input" placeholder="CREATE NEW PROJECT"></input>
+        <button class="save-project-button">SAVE NEW PROJECT</button>
+      </article>
+ -->
+      <article class="palette-block">
+        <div class="palette-title-row">
+        <h2>PROJECT:</h2>
+          <select class="project-dropdown" name="project">
+            <option value="create-project">My Project</option>
+          </select>
+        </div>
+        <div class="palette-holder">
+          <input class="palette-name-input" placeholder="name palette"></input>
+          <div class="palette-colors-holder">
+            <div class="palette-color-1 palette-colors"></div>
+            <div class="palette-color-2 palette-colors"></div>
+            <div class="palette-color-3 palette-colors"></div>
+            <div class="palette-color-4 palette-colors"></div>
+            <div class="palette-color-5 palette-colors"></div>
+            <button>X</button>
+          </div>
+        </div>
+        <div class="palette-holder">
+          <input class="palette-name-input" placeholder="name palette"></input>
+          <div class="palette-colors-holder">
+            <div class="palette-color-1 palette-colors"></div>
+            <div class="palette-color-2 palette-colors"></div>
+            <div class="palette-color-3 palette-colors"></div>
+            <div class="palette-color-4 palette-colors"></div>
+            <div class="palette-color-5 palette-colors"></div>
+            <button>X</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- <script>window.jQuery || document.write('<script src="path/to/your/jquery.min.js"><\/script>')</script> -->
+    <script src="js/scripts.js"></script>
+  </body>
+</html>

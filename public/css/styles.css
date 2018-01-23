@@ -1,0 +1,240 @@
+* {
+  box-sizing: border-box;
+  font-family: "mr-eaves-modern", sans-serif;
+  color: #555;
+  margin: 0;
+  font-size: 20px;
+}
+
+body {
+  background-color: #eee;
+}
+
+button, input, ::placeholder, select, option {
+  font-family: "mr-eaves-modern", sans-serif;
+}
+
+::placeholder {
+  opacity: .4;
+  text-align: center;
+}
+
+button, input, select, option {
+  font-weight: 900;
+  height: 47px;
+  border: none;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1 {
+  font-family: "cortado", sans-serif;
+  font-size: 50px;
+  margin: 0;
+}
+
+h4 {
+  font-size: 30px;
+}
+
+p {
+  font-size: 40px;
+}
+
+header {
+  padding: 7px 28px 14px;
+  background-color: #eee;
+}
+
+main {
+  display: flex;
+}
+
+/******** TOP INPUTS ********/
+.header-inputs {
+  display: flex;
+  position: absolute;
+  right: 10px;
+  top: 22px;
+}
+
+.new-project-input {
+  border-bottom: 5px solid #ccc;
+  background: none;
+  width: 300px;
+}
+
+.header-button {
+  width: 80px;
+  margin-left: 10px;
+  background-color: #ccc;
+}
+
+.header-button:hover {
+  background-color: #aaa;
+}
+
+/******** MIDDLE BUTTONS ********/
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  margin: auto;
+}
+
+.generate-button {
+  width: 50vw;
+  background-color: #d3d3d3;
+}
+
+.generate-button:hover {
+  background-color: #b3b3b3;
+}
+
+.save-palette-button {
+  width: 50vw;
+  background-color: #929292;
+}
+
+.save-palette-button:hover {
+  background-color: #727272;
+}
+
+/******** PAGE MIDDLE ********/
+.main-colors {
+  width: 20vw;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 6px;
+}
+
+.color-1 {
+  background-color: #ccc;
+}
+
+.color-2 {
+  background-color: #aaa;
+}
+
+.color-3 {
+  background-color: #888;
+}
+
+.color-4 {
+  background-color: #666;
+}
+
+.color-5 {
+  background-color: #444;
+}
+
+/******** PAGE BOTTOM ********/
+.bottom-section-container {
+  width: 80vw;
+  display: flex;
+  margin: auto;
+}
+
+/*.project-block  {
+  width: 20vw;
+  margin: 25px 0;
+}
+*/
+.palette-block {
+  width: 40vw;
+  margin-left: 20vw;
+}
+
+.palette-title-row {
+  display: flex;
+  align-content: center;
+}
+
+/**** PROJECTS ****/
+h2 {
+  font-size: 40px;
+  color: #bbb;
+  height: 47px;
+  margin: 25px 10px 0 0 ;
+}
+
+/*.project-block-input {
+  width: 100%;
+  background-color: #fff;
+}
+*/
+.project-dropdown {
+  font-size: 40px;
+  margin: 25px 0;
+  border-radius: 0;
+  height: 47px;
+  width: calc(40vw - 168px);
+  background-color: #eee;
+}
+/*
+.save-project-button {
+  background-color: #c2c2c2;
+  width: 100%;
+  margin-top: 25px;
+}*/
+
+/*.save-project-button:hover {
+  background-color: #a2a2a2;
+}*/
+
+.project-h2 {
+  margin-bottom: 9px;
+}
+
+
+/**** PALETTES ****/
+.palette-holder {
+  display: flex;
+  align-content: center;
+  justify-content: flex-end;
+  margin: 0 0 25px;
+}
+
+.palette-name-input {
+  width: 20vw;
+  text-align: center;
+  background-color: #fff;
+}
+
+.palette-colors-holder {
+  display: flex;
+  justify-content: space-between;
+  width: 20vw;
+  padding-left: 2vw;
+}
+
+.palette-colors {
+  width: 30px;
+  height: 47px;
+}
+
+.palette-color-1 {
+  background-color: #ccc;
+}
+
+.palette-color-2 {
+  background-color: #aaa;
+}
+
+.palette-color-3 {
+  background-color: #888;
+}
+
+.palette-color-4 {
+  background-color: #666;
+}
+
+.palette-color-5 {
+  background-color: #444;
+}
