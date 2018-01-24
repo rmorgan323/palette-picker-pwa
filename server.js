@@ -89,6 +89,7 @@ app.put('/api/v1/palettes', async (request, response) => {
     await database('palettes').where('id', id).update(updatePalette)
     return response.status(201).json(updatePalette)
   } else {
+    console.log(response)
     return response.status(422).send({
       error: "Palette Id Required"
     })
