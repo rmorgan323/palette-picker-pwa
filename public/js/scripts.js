@@ -95,6 +95,18 @@ const getPalettesByProjectId = async (id) => {
   return jsonPalettes;
 }
 
+const deletePaletteByPaletteId = async (id) => {
+  const palettes = await fetch(`http://localhost:3000/api/v1/palettes/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const jsonPalettes = await palettes.json();
+
+  return jsonPalettes;
+}
+
 //////////  EVERYTHING ELSE  //////////
 
 displayProjects = async () => {
@@ -235,6 +247,8 @@ createPaletteInProject = (projId, palId, hex1, hex2, hex3, hex4, hex5) => {
 }
 
 function deletePalette() {
+  const palId = $(this).closest('.palette-holder').attr('data-palId');
+  deletePaletteByPaletteId(palId);
   $(this).closest('.palette-holder').remove();
 }
 
