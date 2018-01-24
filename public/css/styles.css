@@ -27,6 +27,7 @@ button, input, select, option {
   outline: none;
 }
 
+
 button {
   cursor: pointer;
 }
@@ -35,6 +36,8 @@ h1 {
   font-family: "cortado", sans-serif;
   font-size: 50px;
   margin: 0;
+  width: 246px;
+  text-align: center;
 }
 
 h4 {
@@ -46,8 +49,12 @@ p {
 }
 
 header {
-  padding: 7px 28px 14px;
+  padding: 0 28px 0;
   background-color: #eee;
+  display: flex;
+  justify-content: space-between;
+  height: 94px;
+  align-items: center;
 }
 
 main {
@@ -57,9 +64,7 @@ main {
 /******** TOP INPUTS ********/
 .header-inputs {
   display: flex;
-  position: absolute;
-  right: 10px;
-  top: 22px;
+  width: 390px;
 }
 
 .new-project-input {
@@ -76,6 +81,16 @@ main {
 
 .header-button:hover {
   background-color: #aaa;
+}
+
+.project-dropdown {
+  font-size: 30px;
+  margin: 0 29px 0 auto;
+  border-radius: 0px;
+  height: 47px;
+  width: 250px;
+  background-color: #fff;
+  color: #999;
 }
 
 /******** MIDDLE BUTTONS ********/
@@ -160,11 +175,6 @@ main {
   margin: auto;
 }
 
-/*.project-block  {
-  width: 20vw;
-  margin: 25px 0;
-}
-*/
 .palette-block {
   width: 40vw;
   margin-left: 20vw;
@@ -181,15 +191,6 @@ h2 {
   color: #bbb;
   height: 47px;
   margin: 25px 10px 14px 0 ;
-}
-
-.project-dropdown {
-  font-size: 40px;
-  margin: 25px 0;
-  border-radius: 0;
-  height: 47px;
-  width: calc(40vw - 168px);
-  background-color: #eee;
 }
 
 .project-name-span {
