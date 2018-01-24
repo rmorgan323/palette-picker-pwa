@@ -11,6 +11,9 @@
 
     <header>
       <h1>palette picker</h1>
+      <select class="project-dropdown" name="project">
+            <!-- <option value="create-project">My Project</option> -->
+      </select>
       <div class="header-inputs">
         <input class="new-project-input" placeholder="create new project"></input>
         <button class="header-button">save</button>
@@ -18,25 +21,25 @@
     </header>
 
     <main>
-      <div class="color-1 main-colors">
-        <p>lock icon</p>
-        <p class="hex-value">#d3d3d3</p>
+      <div class="color-1 main-colors" data-locked="false">
+        <img class="lock-1 all-locks" src="assets/lock-open-0.svg">
+        <p class="hex-value-1 hex-values">#d3d3d3</p>
       </div>
-      <div class="color-2 main-colors">
-        <p>lock icon</p>
-        <p class="hex-value">#c3c3c3</p>
+      <div class="color-2 main-colors" data-locked="false">
+        <img class="lock-2 all-locks" src="assets/lock-open-0.svg">
+        <p class="hex-value-2 hex-values">#c3c3c3</p>
       </div>
-      <div class="color-3 main-colors">
-        <p>lock icon</p>
-        <p class="hex-value">#c3c3c3</p>
+      <div class="color-3 main-colors" data-locked="false">
+        <img class="lock-3 all-locks" src="assets/lock-open-0.svg">
+        <p class="hex-value-3 hex-values">#c3c3c3</p>
       </div>
-      <div class="color-4 main-colors">
-        <p>lock icon</p>
-        <p class="hex-value">#b3b3b3</p>
+      <div class="color-4 main-colors" data-locked="false">
+        <img class="lock-4 all-locks" src="assets/lock-open-0.svg">
+        <p class="hex-value-4 hex-values">#b3b3b3</p>
       </div>
-      <div class="color-5 main-colors">
-        <p>lock icon</p>
-        <p class="hex-value">#a3a3a3</p>
+      <div class="color-5 main-colors" data-locked="false">
+        <img class="lock-5 all-locks" src="assets/lock-open-0.svg">
+        <p class="hex-value-5 hex-values">#a3a3a3</p>
       </div>
     </main>
 
@@ -46,39 +49,11 @@
     </article>
 
     <section class="bottom-section-container">
-   <!--    <article class="project-block">
-        <input class="project-block-input" placeholder="CREATE NEW PROJECT"></input>
-        <button class="save-project-button">SAVE NEW PROJECT</button>
-      </article>
- -->
+
       <article class="palette-block">
         <div class="palette-title-row">
-        <h2>PROJECT:</h2>
-          <select class="project-dropdown" name="project">
-            <option value="create-project">My Project</option>
-          </select>
-        </div>
-        <div class="palette-holder">
-          <input class="palette-name-input" placeholder="name palette"></input>
-          <div class="palette-colors-holder">
-            <div class="palette-color-1 palette-colors"></div>
-            <div class="palette-color-2 palette-colors"></div>
-            <div class="palette-color-3 palette-colors"></div>
-            <div class="palette-color-4 palette-colors"></div>
-            <div class="palette-color-5 palette-colors"></div>
-            <button>X</button>
-          </div>
-        </div>
-        <div class="palette-holder">
-          <input class="palette-name-input" placeholder="name palette"></input>
-          <div class="palette-colors-holder">
-            <div class="palette-color-1 palette-colors"></div>
-            <div class="palette-color-2 palette-colors"></div>
-            <div class="palette-color-3 palette-colors"></div>
-            <div class="palette-color-4 palette-colors"></div>
-            <div class="palette-color-5 palette-colors"></div>
-            <button>X</button>
-          </div>
+        <h2>PROJECT: <span class="project-name-span"></span></h2>
+          
         </div>
       </article>
     </section>
