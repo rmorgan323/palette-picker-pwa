@@ -4,6 +4,7 @@
   color: #555;
   margin: 0;
   font-size: 20px;
+  outline: none;
 }
 
 body {
@@ -87,6 +88,7 @@ main {
 
 .generate-button {
   width: 50vw;
+  height: 94px;
   background-color: #d3d3d3;
 }
 
@@ -96,6 +98,7 @@ main {
 
 .save-palette-button {
   width: 50vw;
+  height: 94px;
   background-color: #929292;
 }
 
@@ -106,12 +109,28 @@ main {
 /******** PAGE MIDDLE ********/
 .main-colors {
   width: 20vw;
-  height: 400px;
+  height: 47vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding-bottom: 6px;
+  padding-bottom: 9px;
+}
+
+.all-locks {
+  opacity: .25;
+  width: 31px;
+  cursor: pointer;
+}
+
+.all-locks:hover {
+  opacity: .5;
+}
+
+.hex-values {
+  font-weight: 900;
+  opacity: .2;
+  margin-top: 10px;
 }
 
 .color-1 {
@@ -161,14 +180,9 @@ h2 {
   font-size: 40px;
   color: #bbb;
   height: 47px;
-  margin: 25px 10px 0 0 ;
+  margin: 25px 10px 14px 0 ;
 }
 
-/*.project-block-input {
-  width: 100%;
-  background-color: #fff;
-}
-*/
 .project-dropdown {
   font-size: 40px;
   margin: 25px 0;
@@ -177,16 +191,10 @@ h2 {
   width: calc(40vw - 168px);
   background-color: #eee;
 }
-/*
-.save-project-button {
-  background-color: #c2c2c2;
-  width: 100%;
-  margin-top: 25px;
-}*/
 
-/*.save-project-button:hover {
-  background-color: #a2a2a2;
-}*/
+.project-name-span {
+  font-size: 40px;
+}
 
 .project-h2 {
   margin-bottom: 9px;
@@ -204,7 +212,33 @@ h2 {
 .palette-name-input {
   width: 20vw;
   text-align: center;
+  border-bottom: 5px solid #fff;
+  padding-top: 7px;
+  transition: ;
+
+  background: none;
+}
+
+.palette-name-h5 {
+  width: 20vw;
+  text-align: center;
   background-color: #fff;
+  padding-top: 13px;
+  border-bottom: 5px solid #fff;
+  position: relative;
+}
+
+.pencil {
+  width: 25px;
+  position: absolute;
+  opacity: .2;
+  cursor: pointer;
+  left: 6px;
+  bottom: 6px;
+}
+
+.pencil:hover {
+  opacity: .5;
 }
 
 .palette-colors-holder {
@@ -237,4 +271,21 @@ h2 {
 
 .palette-color-5 {
   background-color: #444;
+}
+
+.delete-palette-button {
+  background: none;
+}
+
+
+
+.trash {
+  width: 25px;
+  opacity: .2;
+  position: relative;
+  top: 2px;
+}
+
+.trash:hover {
+  opacity: .4;
 }

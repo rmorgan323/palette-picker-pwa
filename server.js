@@ -55,8 +55,8 @@ app.post('/api/v1/projects', async (request, response) => {
 
   if (newProject) {
     const newId = await database('projects').returning('id').insert(newProject)
-    const objToReturn = await database('projects').where('id', newId[0]).select()
-    return response.status(201).json(objToReturn[0])
+    const objToReturn = await database('projects').select()
+    return response.status(201).json(objToReturn)
   } else {
     return response.status(422).send({
       error: "Project Name Required"
@@ -100,6 +100,7 @@ app.delete('/api/v1/projects/:id', async (request, response) => {
   const { id } = request.params;
 
   if (id) {
+    await database('palettes').where('project_id', 'id')
     await database('projects').where('id', id).delete()
     return response.send({
       success: `Project id ${id} deleted`
