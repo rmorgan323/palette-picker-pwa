@@ -36,7 +36,7 @@ app.get('/api/v1/palettes', (request, response) => {
     });
 });
 
-///*///  GET PALETTES BY PROJECT_ID  ///*///
+//////  GET PALETTES BY PROJECT_ID  //////
 app.get('/api/v1/palettes/:project_id', (request, response) => {
   const { project_id } = request.params;
 
@@ -52,6 +52,11 @@ app.get('/api/v1/palettes/:project_id', (request, response) => {
 ///*///  CREATE NEW PROJECT  ///*///
 app.post('/api/v1/projects', async (request, response) => {
   const newProject = request.body;
+  const nameCheck = await database('projects').where('project_name', newProject.project_name).select();
+  
+  if (Object.keys(nameCheck).length) {
+    return response.sendStatus(400)
+  }
 
   if (newProject) {
     const newId = await database('projects').returning('id').insert(newProject)
@@ -64,10 +69,9 @@ app.post('/api/v1/projects', async (request, response) => {
   }
 });
 
-///*///  CREATE NEW PALETTE  ///*///
+//////  CREATE NEW PALETTE  //////
 app.post('/api/v1/palettes', async (request, response) => {
   const newPalette = request.body;
-  console.log(newPalette)
 
   if (newPalette) {
     const newId = await database('palettes').returning('id').insert(newPalette)
@@ -97,14 +101,14 @@ app.put('/api/v1/palettes', async (request, response) => {
 });
 
 ///*///  DELETE PROJECT BY ID ///*///
-app.delete('/api/v1/projects/:id', async (request, response) => {
-  const { id } = request.params;
+app.delete('/api/v1/projects/:projId', async (request, response) => {
+  const { projId } = request.params;
 
-  if (id) {
-    await database('palettes').where('project_id', 'id')
-    await database('projects').where('id', id).delete()
+  if (projId) {
+    await database('palettes').where('project_id', projId).delete()
+    await database('projects').where('id', projId).delete()
     return response.send({
-      success: `Project id ${id} deleted`
+      success: `Project id ${projId} deleted`
     })
   } else {
     return response.status(422).send({
