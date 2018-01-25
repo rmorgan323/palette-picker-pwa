@@ -55,6 +55,7 @@ header {
   justify-content: space-between;
   height: 94px;
   align-items: center;
+  position: relative;
 }
 
 main {
@@ -85,12 +86,33 @@ main {
 
 .project-dropdown {
   font-size: 30px;
-  margin: 0 29px 0 auto;
+  margin: 0 29px 0 10px;
   border-radius: 0px;
   height: 47px;
   width: 250px;
   background-color: #fff;
   color: #999;
+}
+
+.delete-project-button {
+  width: 25px;
+  margin-left: auto;
+  cursor: pointer;
+  opacity: .2;
+}
+
+.delete-project-button:hover {
+  opacity: .4;
+}
+
+.error-message {
+  position: absolute;
+  right: 168px;
+  bottom: 1px;
+  width: 200px;
+  text-align: center;
+  color: red;
+  opacity: .5;
 }
 
 /******** MIDDLE BUTTONS ********/
@@ -190,7 +212,10 @@ h2 {
   font-size: 40px;
   color: #bbb;
   height: 47px;
-  margin: 25px 10px 14px 0 ;
+  margin: 25px 10px 14px 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .project-name-span {
@@ -227,6 +252,9 @@ h2 {
   padding-top: 13px;
   border-bottom: 5px solid #fff;
   position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .pencil {
@@ -252,6 +280,7 @@ h2 {
 .palette-colors {
   width: 30px;
   height: 47px;
+  cursor: pointer;
 }
 
 .palette-color-1 {
@@ -277,8 +306,6 @@ h2 {
 .delete-palette-button {
   background: none;
 }
-
-
 
 .trash {
   width: 25px;
