@@ -12,6 +12,18 @@ module.exports = {
       directory: './db/seeds/dev'
     },
     useNullAsDefault: true
+  },
+
+  test: {
+    client: 'pg',
+    connection: 'postgres://localhost/palettepicker_test',
+    migrations: {
+      directory: __dirname + '/db/migrations'
+    },
+    seeds: {
+      directory: __dirname + '/db/seeds/test'
+    },
+    useNullAsDefault: true
   }
 
   // staging: {
