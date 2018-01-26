@@ -6,7 +6,7 @@ $(document).ready(() => {
 //////////  FETCHES //////////
 
 const getAllProjects = async () => {
-  const projects = await fetch('http://localhost:3000/api/v1/projects', {
+  const projects = await fetch('/api/v1/projects', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ const getAllProjects = async () => {
 }
 
 const createNewProject = async (name) => {
-  const projects = await fetch('http://localhost:3000/api/v1/projects', {
+  const projects = await fetch('/api/v1/projects', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
