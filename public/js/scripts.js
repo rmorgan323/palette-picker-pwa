@@ -37,7 +37,7 @@ const createNewProject = async (name) => {
 }
 
 const createNewPalette = async (id, c1, c2, c3, c4, c5) => {
-  const palette = await fetch('http://localhost:3000/api/v1/palettes', {
+  const palette = await fetch('/api/v1/palettes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -57,7 +57,7 @@ const createNewPalette = async (id, c1, c2, c3, c4, c5) => {
 }
 
 const getPalettesByProjectId = async (id) => {
-  const palettes = await fetch(`http://localhost:3000/api/v1/palettes/${id}`, {
+  const palettes = await fetch(`/api/v1/palettes/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ const getPalettesByProjectId = async (id) => {
 }
 
 const removeProject = async (projId) => {
-  const project = await fetch(`http://localhost:3000/api/v1/projects/${projId}`, {
+  const project = await fetch(`/api/v1/projects/${projId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ const removeProject = async (projId) => {
 
 const updatePalette = async (palId, projId, name, c1, c2, c3, c4, c5) => {
   const body = buildFetchBody(palId, projId, name, c1, c2, c3, c4, c5);
-  const palette = await fetch('http://localhost:3000/api/v1/palettes', {
+  const palette = await fetch('/api/v1/palettes', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -109,7 +109,7 @@ buildFetchBody = (palId, projId, name, c1, c2, c3, c4, c5) => {
 }
 
 const deletePaletteByPaletteId = async (id) => {
-  const palettes = await fetch(`http://localhost:3000/api/v1/palettes/${id}`, {
+  const palettes = await fetch(`/api/v1/palettes/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
