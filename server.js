@@ -10,8 +10,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(3000, () => {
-  console.log('Palette Picker running on localhost:3000');
+app.listen(app.get('port'), () => {
+  console.log(`Palette Picker running on localhost:${app.get('port')}.`};
 });
 
 ///*///  GET ALL PROJECTS  ///*///
