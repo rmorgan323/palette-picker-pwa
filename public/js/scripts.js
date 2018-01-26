@@ -5,6 +5,69 @@ $(document).ready(() => {
 
 //////////  FETCHES //////////
 
+const getAllProjects = async () => {
+  const projects = await fetch('http://localhost:3000/api/v1/projects', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const jsonProjects = await projects.json();
+
+  return jsonProjects;
+}
+
+const createNewProject = async (name) => {
+  const projects = await fetch('http://localhost:3000/api/v1/projects', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      project_name: name
+    })
+  });
+  if (projects.status !== 400) {
+    const jsonProjects = await projects.json();
+
+    return jsonProjects;
+  } else {
+    return 'Status: 400'
+  }
+}
+
+const createNewPalette = async (id, c1, c2, c3, c4, c5) => {
+  const palette = await fetch('http://localhost:3000/api/v1/palettes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      project_id: id,
+      color_1: c1,
+      color_2: c2,
+      color_3: c3,
+      color_4: c4,
+      color_5: c5
+    })
+  })
+  const jsonPalette = await palette.json();
+
+  return jsonPalette;
+}
+
+const getPalettesByProjectId = async (id) => {
+  const palettes = await fetch(`http://localhost:3000/api/v1/palettes/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const jsonPalettes = await palettes.json();
+
+  return jsonPalettes;
+}
+
 const removeProject = async (projId) => {
   const project = await fetch(`http://localhost:3000/api/v1/projects/${projId}`, {
     method: 'DELETE',
@@ -33,6 +96,7 @@ const updatePalette = async (palId, projId, name, c1, c2, c3, c4, c5) => {
 
 buildFetchBody = (palId, projId, name, c1, c2, c3, c4, c5) => {
   let body = {}
+
   palId ? body.id = palId : null;
   projId ? body.project_id = projId : null;
   name ? body.palette_name = name : null;
@@ -41,71 +105,7 @@ buildFetchBody = (palId, projId, name, c1, c2, c3, c4, c5) => {
   c3 ? body.color_3 = c3 : null;
   c4 ? body.color_4 = c4 : null;
   c5 ? body.color_5 = c5 : null;
-
   return body;
-}
-
-const createNewPalette = async (id, c1, c2, c3, c4, c5) => {
-  const palette = await fetch('http://localhost:3000/api/v1/palettes', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      project_id: id,
-      color_1: c1,
-      color_2: c2,
-      color_3: c3,
-      color_4: c4,
-      color_5: c5
-    })
-  })
-  const jsonPalette = await palette.json();
-
-  return jsonPalette;
-}
-
-const getAllProjects = async () => {
-  const projects = await fetch('http://localhost:3000/api/v1/projects', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const jsonProjects = await projects.json();
-
-  return jsonProjects;
-}
-
-const createNewProject = async (name) => {
-  const projects = await fetch('http://localhost:3000/api/v1/projects', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      project_name: name
-    })
-  });
-  if (projects.status !== 400) {
-    const jsonProjects = await projects.json();
-    return jsonProjects;
-  } else {
-    return 'Status: 400'
-  }
-
-}
-
-const getPalettesByProjectId = async (id) => {
-  const palettes = await fetch(`http://localhost:3000/api/v1/palettes/${id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const jsonPalettes = await palettes.json();
-
-  return jsonPalettes;
 }
 
 const deletePaletteByPaletteId = async (id) => {
@@ -122,9 +122,25 @@ const deletePaletteByPaletteId = async (id) => {
 
 //////////  CREATE FUNCTIONS  //////////
 
+pickNewColors = () => {
+  const brightnessArray = ["#000", "#fff"];
+
+  for(let i = 1; i <= 5; i++) {
+    if ($(`.color-${i}`).attr('data-locked') === 'false') {
+      const newColor = generateRandomHexCode();
+      const brightness = findBrightness(newColor);
+
+      $(`.color-${i}`).css('background-color', newColor);
+      $(`.hex-value-${i}`).text(newColor).css('color', brightnessArray[brightness])
+      $(`.lock-${i}`).attr('src', `assets/lock-open-${brightness}.svg`);
+    }
+  }
+}
+
 createProject = async () => {
-  const name = $('.new-project-input').val()
-  const projects = await createNewProject(name)
+  const name = $('.new-project-input').val();
+  const projects = await createNewProject(name);
+
   if (projects === 'Status: 400') {
     $('.error-message').text('Name already taken.');
   } else {
@@ -136,35 +152,23 @@ createProject = async () => {
   }
 }
 
-pickNewColors = () => {
-  for(let i = 1; i <= 5; i++) {
-    if ($(`.color-${i}`).attr('data-locked') === 'false') {
-      const newColor = generateRandomHexCode();
-      const color = newColor[0];
-      const brightness = newColor[1];
-      const brightnessArray = ["#000", "#fff"];
-
-      $(`.color-${i}`).css('background-color', color);
-      $(`.hex-value-${i}`).text(color).css('color', brightnessArray[brightness])
-      $(`.lock-${i}`).attr('src', `assets/lock-open-${brightness}.svg`);
-    }
-  }
-}
-
 //////////  SAVE AND DELETE  //////////
 
 savePalette = async () => {
-  const color1 = $('.hex-value-1').text();
-  const color2 = $('.hex-value-2').text();
-  const color3 = $('.hex-value-3').text();
-  const color4 = $('.hex-value-4').text();
-  const color5 = $('.hex-value-5').text();
   const id = getCurrentProjectId();
-
-  const newPalette = await createNewPalette(id, color1, color2, color3, color4, color5)
-  createPaletteInProject(newPalette.project_id, newPalette.id, color1, color2, color3, color4, color5);
+  if (id) {
+    const color1 = $('.hex-value-1').text();
+    const color2 = $('.hex-value-2').text();
+    const color3 = $('.hex-value-3').text();
+    const color4 = $('.hex-value-4').text();
+    const color5 = $('.hex-value-5').text();
+    const newPalette = await createNewPalette(id, color1, color2, color3, color4, color5)
+    
+    createPaletteInProject(newPalette.project_id, newPalette.id, color1, color2, color3, color4, color5);
+  } else {
+    $('.error-message').text('Please choose project name first.');
+  }
 }
-
 
 async function switchProjects() {
   const name = $(this).val();
@@ -178,6 +182,7 @@ async function switchProjects() {
 
 function deletePalette() {
   const palId = $(this).closest('.palette-holder').attr('data-palId');
+
   deletePaletteByPaletteId(palId);
   $(this).closest('.palette-holder').remove();
 }
@@ -189,6 +194,7 @@ deleteProject = async () => {
     return project.id !== parseInt(id);
   })
   const newId = getCurrentProjectId();
+
   updateDropdown(newList);
   removeProject(id);
   if (newList.length) {
@@ -209,6 +215,7 @@ displayProjectName = (name) => {
 
 displayTopProjectPalette = async (id) => {
   const projectPalettes = await getPalettesByProjectId(id);
+
   displayPalettes(projectPalettes);
 }
 
@@ -216,22 +223,22 @@ function toggleLocked() {
   if ($(this).attr('src') === 'assets/lock-open-0.svg') {
     $(this).closest('div').attr('data-locked', true);
     $(this).attr('src', 'assets/lock-0.svg');
-    return
+    return;
   }
   if ($(this).attr('src') === 'assets/lock-0.svg') {
     $(this).closest('div').attr('data-locked', false);
     $(this).attr('src', 'assets/lock-open-0.svg');
-    return
+    return;
   }
   if ($(this).attr('src') === 'assets/lock-open-1.svg') {
     $(this).closest('div').attr('data-locked', true);
     $(this).attr('src', 'assets/lock-1.svg');
-    return
+    return;
   }
   if ($(this).attr('src') === 'assets/lock-1.svg') {
     $(this).closest('div').attr('data-locked', false);
     $(this).attr('src', 'assets/lock-open-1.svg');
-    return
+    return;
   }
 }
 
@@ -281,14 +288,18 @@ createPaletteInProject = (projId, palId, hex1, hex2, hex3, hex4, hex5) => {
 
 displayProjects = async () => {
   const projects = await getAllProjects();
+
   updateDropdown(projects);
-  displayTopProjectPalette(projects[0].id);
-  displayProjectName(projects[0].project_name);
+  if (projects.length) {
+    displayTopProjectPalette(projects[0].id);
+    displayProjectName(projects[0].project_name);
+  }
 }
 
 function addPaletteName() {
   const name = $(this).val();
   const palId = $(this).closest('.palette-holder').attr('data-palId');
+
   $(this).replaceWith(`
     <h5 class="palette-name-h5"><img class="pencil" src="assets/pencil.svg"></button>${name}</h5>
   `)
@@ -298,6 +309,7 @@ function addPaletteName() {
 function editPaletteName() {
   const name = $(this).closest('.palette-name-h5').text();
   const parent = $(this).closest('.palette-holder');
+
   $(this).closest('.palette-name-h5').replaceWith(`
     <input class="palette-name-input" placeholder="name palette" onfocus="this.setSelectionRange(this.value.length, this.value.length)" value="${name}"></input>
   `)
@@ -319,10 +331,10 @@ clearPalettes = () => {
 
 function sendToTop() {
   let colorArray = []
+
   for (let i = 0; i < 5; i++) {
-    colorArray.push(rgb2hex($(this).parent().children()[i].style.backgroundColor))
+    colorArray.push(rgb2hex($(this).parent().children()[i].style.backgroundColor));
   }
-  console.log(colorArray)
   paletteToTop(colorArray);
 }
 
@@ -343,6 +355,7 @@ findBrightness = (hex) => {
   const array = hex.split('').slice(1, 7)
   const nums = array.map(val => parseInt(val, 16));
   let brightness = nums[0] + nums[2] + nums[4]
+
   brightness < 20 ? brightness = 1 : brightness = 0;
   return brightness;
 }
@@ -350,21 +363,17 @@ findBrightness = (hex) => {
 generateRandomHexCode = () => {
   const chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
   let hexCode = ['#'];
-  let brightness = 0;
+
   for(let i = 0; i < 6; i++) {
     const randomNum = Math.floor(Math.random() * 16);
-    if (i === 0 || i === 2 || i === 4) {
-      brightness += randomNum
-    }
-    hexCode.push(chars[randomNum])
+    hexCode.push(chars[randomNum]);
   }
-  brightness <= 19 ? brightness = 1 : brightness = 0
-
-  return [hexCode.join(''), brightness];
+  return hexCode.join('');
 }
 
 getCurrentProjectId = () => {
   const id = $('select').find(':selected').attr('data-id');
+
   return id;
 }
 
@@ -385,6 +394,6 @@ $('article').on('click', '.delete-palette-button', deletePalette);
 $('article').on('blur', '.palette-name-input', addPaletteName);
 $('article').on('click', '.pencil', editPaletteName);
 $('header').on('click', '.header-button', createProject);
-$('header').on('change', 'select', switchProjects)
+$('header').on('change', 'select', switchProjects);
 $('header').on('click', '.delete-project-button', deleteProject);
 $('article').on('click', '.palette-colors', sendToTop);

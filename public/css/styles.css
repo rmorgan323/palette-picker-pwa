@@ -27,7 +27,6 @@ button, input, select, option {
   outline: none;
 }
 
-
 button {
   cursor: pointer;
 }
@@ -107,9 +106,9 @@ main {
 
 .error-message {
   position: absolute;
-  right: 168px;
+  right: 146px;
   bottom: 1px;
-  width: 200px;
+  width: 244px;
   text-align: center;
   color: red;
   opacity: .5;
@@ -119,7 +118,7 @@ main {
 .button-container {
   display: flex;
   justify-content: space-between;
-  width: 100vw;
+  width: 100%;
   margin: auto;
 }
 

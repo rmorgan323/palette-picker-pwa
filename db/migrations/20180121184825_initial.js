@@ -8,7 +8,8 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('palettes', function(table) {
       table.increments('id').primary();
       table.string('palette_name');
-      table.string('project_id');
+      table.integer('project_id').unsigned();
+      table.foreign('project_id').references('projects.id');
       table.string('color_1');
       table.string('color_2');
       table.string('color_3');

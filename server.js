@@ -36,26 +36,13 @@ app.get('/api/v1/palettes', (request, response) => {
     });
 });
 
-//////  GET PALETTES BY PROJECT_ID  //////
-app.get('/api/v1/palettes/:project_id', (request, response) => {
-  const { project_id } = request.params;
-
-  database('palettes').where('project_id', project_id).select()
-    .then((palettes) => {
-      response.status(200).json(palettes);
-    })
-    .catch((error) => {
-      response.status(500).json({ error })
-    });
-});
-
 ///*///  CREATE NEW PROJECT  ///*///
 app.post('/api/v1/projects', async (request, response) => {
   const newProject = request.body;
   const nameCheck = await database('projects').where('project_name', newProject.project_name).select();
   
   if (Object.keys(nameCheck).length) {
-    return response.sendStatus(400)
+    return response.sendStatus(400).send({ error: 'Name taken' })
   }
 
   if (newProject) {
@@ -69,7 +56,7 @@ app.post('/api/v1/projects', async (request, response) => {
   }
 });
 
-//////  CREATE NEW PALETTE  //////
+///*///  CREATE NEW PALETTE  ///*///
 app.post('/api/v1/palettes', async (request, response) => {
   const newPalette = request.body;
 
@@ -82,6 +69,34 @@ app.post('/api/v1/palettes', async (request, response) => {
       error: "Palette Object Required"
     })
   }
+});
+
+///*///  CREATE NEW PALETTE  ///*///
+app.post('/api/v1/palettes', async (request, response) => {
+  const newPalette = request.body;
+
+  if (newPalette) {
+    const newId = await database('palettes').returning('id').insert(newPalette)
+    const objToReturn = await database('palettes').where('id', newId[0]).select()
+    return response.status(201).json(objToReturn[0])
+  } else {
+    return response.status(422).send({
+      error: "Palette Object Required"
+    })
+  }
+});
+
+///*///  GET PALETTES BY PROJECT_ID  ///*///
+app.get('/api/v1/palettes/:project_id', async (request, response) => {
+  const { project_id } = request.params;
+
+  await database('palettes').where('project_id', project_id).select()
+    .then((palettes) => {
+      response.status(200).json(palettes);
+    })
+    .catch((error) => {
+      response.status(500).json({ error })
+    });
 });
 
 ///*///  UPDATE PALETTE  ///*///
@@ -112,7 +127,7 @@ app.delete('/api/v1/projects/:projId', async (request, response) => {
     })
   } else {
     return response.status(422).send({
-      error: "Project not found."
+      error: "Project not found"
     })
   }
 });
@@ -128,12 +143,9 @@ app.delete('/api/v1/palettes/:id', async (request, response) => {
     })
   } else {
     return response.status(422).send({
-      error: "Palette not found."
+      error: "Palette not found"
     })
   }
 });
 
-
-
-
-
+module.exports = app;
