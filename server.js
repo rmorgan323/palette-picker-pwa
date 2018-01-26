@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(app.get('port'), () => {
-  console.log(`Palette Picker running on localhost:${app.get('port')}.`};
+  console.log(`Palette Picker running on localhost:${app.get('port')}.`);
 });
 
 ///*///  GET ALL PROJECTS  ///*///
