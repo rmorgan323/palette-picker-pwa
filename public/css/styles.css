@@ -1,9 +1,9 @@
 * {
   box-sizing: border-box;
-  font-family: "mr-eaves-modern", sans-serif;
   color: #555;
-  margin: 0;
+  font-family: "mr-eaves-modern", sans-serif;
   font-size: 20px;
+  margin: 0;
   outline: none;
 }
 
@@ -21,9 +21,9 @@ button, input, ::placeholder, select, option {
 }
 
 button, input, select, option {
+  border: none;
   font-weight: 900;
   height: 47px;
-  border: none;
   outline: none;
 }
 
@@ -35,8 +35,8 @@ h1 {
   font-family: "cortado", sans-serif;
   font-size: 50px;
   margin: 0;
-  width: 246px;
   text-align: center;
+  width: 266px;
 }
 
 h4 {
@@ -48,12 +48,12 @@ p {
 }
 
 header {
-  padding: 0 28px 0;
+  align-items: center;
   background-color: #eee;
   display: flex;
-  justify-content: space-between;
   height: 94px;
-  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px 0;
   position: relative;
 }
 
@@ -68,36 +68,42 @@ main {
 }
 
 .new-project-input {
-  border-bottom: 5px solid #ccc;
   background: none;
+  border-bottom: 5px solid #ccc;
   width: 300px;
 }
 
 .header-button {
-  width: 80px;
-  margin-left: 10px;
   background-color: #ccc;
+  margin-left: 10px;
+  width: 80px;
 }
 
 .header-button:hover {
   background-color: #aaa;
 }
 
+.dropdown-container {
+  margin-left: auto;
+}
+
 .project-dropdown {
-  font-size: 30px;
-  margin: 0 29px 0 10px;
-  border-radius: 0px;
-  height: 47px;
-  width: 250px;
   background-color: #fff;
+  border-radius: 0px;
   color: #999;
+  font-size: 30px;
+  height: 47px;
+  margin: 0 29px 0 10px;
+  width: 250px;
 }
 
 .delete-project-button {
-  width: 25px;
-  margin-left: auto;
   cursor: pointer;
+  margin-left: auto;
   opacity: .2;
+  position: relative;
+  top: 7px;
+  width: 25px;
 }
 
 .delete-project-button:hover {
@@ -105,27 +111,27 @@ main {
 }
 
 .error-message {
-  position: absolute;
-  right: 146px;
   bottom: 1px;
-  width: 244px;
-  text-align: center;
   color: red;
   opacity: .5;
+  position: absolute;
+  right: 146px;
+  text-align: center;
+  width: 244px;
 }
 
 /******** MIDDLE BUTTONS ********/
 .button-container {
   display: flex;
   justify-content: space-between;
-  width: 100%;
   margin: auto;
+  width: 100%;
 }
 
 .generate-button {
-  width: 50vw;
-  height: 94px;
   background-color: #d3d3d3;
+  height: 94px;
+  width: 50vw;
 }
 
 .generate-button:hover {
@@ -133,9 +139,9 @@ main {
 }
 
 .save-palette-button {
-  width: 50vw;
-  height: 94px;
   background-color: #929292;
+  height: 94px;
+  width: 50vw;
 }
 
 .save-palette-button:hover {
@@ -144,19 +150,19 @@ main {
 
 /******** PAGE MIDDLE ********/
 .main-colors {
-  width: 20vw;
-  height: 47vh;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 47vh;
   justify-content: flex-end;
   padding-bottom: 9px;
+  width: 20vw;
 }
 
 .all-locks {
+  cursor: pointer;
   opacity: .25;
   width: 31px;
-  cursor: pointer;
 }
 
 .all-locks:hover {
@@ -165,8 +171,8 @@ main {
 
 .hex-values {
   font-weight: 900;
-  opacity: .2;
   margin-top: 10px;
+  opacity: .2;
 }
 
 .color-1 {
@@ -191,30 +197,30 @@ main {
 
 /******** PAGE BOTTOM ********/
 .bottom-section-container {
-  width: 80vw;
   display: flex;
   margin: auto;
+  width: 80vw;
 }
 
 .palette-block {
-  width: 40vw;
   margin-left: 20vw;
+  width: 40vw;
 }
 
 .palette-title-row {
-  display: flex;
   align-content: center;
+  display: flex;
 }
 
 /**** PROJECTS ****/
 h2 {
-  font-size: 40px;
   color: #bbb;
+  font-size: 40px;
   height: 47px;
   margin: 25px 10px 14px 0;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 .project-name-span {
@@ -228,41 +234,40 @@ h2 {
 
 /**** PALETTES ****/
 .palette-holder {
-  display: flex;
   align-content: center;
+  display: flex;
   justify-content: flex-end;
   margin: 0 0 25px;
 }
 
 .palette-name-input {
-  width: 20vw;
-  text-align: center;
   border-bottom: 5px solid #fff;
   padding-top: 7px;
+  text-align: center;
   transition: ;
-
+  width: 20vw;
   background: none;
 }
 
 .palette-name-h5 {
-  width: 20vw;
-  text-align: center;
   background-color: #fff;
-  padding-top: 13px;
   border-bottom: 5px solid #fff;
+  overflow: hidden;
+  padding-top: 13px;
   position: relative;
+  text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
+  width: 20vw;
 }
 
 .pencil {
-  width: 25px;
-  position: absolute;
-  opacity: .2;
+  bottom: 6px;
   cursor: pointer;
   left: 6px;
-  bottom: 6px;
+  opacity: .2;
+  position: absolute;
+  width: 25px;
 }
 
 .pencil:hover {
@@ -272,14 +277,14 @@ h2 {
 .palette-colors-holder {
   display: flex;
   justify-content: space-between;
-  width: 20vw;
   padding-left: 2vw;
+  width: 20vw;
 }
 
 .palette-colors {
-  width: 30px;
-  height: 47px;
   cursor: pointer;
+  height: 47px;
+  width: 30px;
 }
 
 .palette-color-1 {
@@ -307,12 +312,87 @@ h2 {
 }
 
 .trash {
-  width: 25px;
   opacity: .2;
   position: relative;
   top: 2px;
+  width: 25px;
 }
 
 .trash:hover {
   opacity: .4;
+}
+
+@media screen and (max-width: 1040px) {
+  header {
+    flex-direction: column;
+    height: unset;
+    padding: 11px 0 15px;
+  }
+
+  .dropdown-container {
+    margin: 15px auto;
+  }
+
+  .project-dropdown {
+    margin: 0;
+  }
+
+  .header-inputs {
+    width: 277px;
+  }
+
+  .bottom-section-container {
+    width: 70vw;
+  }
+
+  .palette-block {
+    margin-left: 0;
+    width: 70vw;
+  }
+
+  .palette-name-h5 {
+    width: 35vw;
+  }
+
+  .palette-colors-holder {
+    width: 35vw;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    flex-direction: column;
+  }
+
+  .main-colors {
+    height: unset;
+    padding-top: 19px;
+    width: unset;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .bottom-section-container {
+    width: 94vw;
+  }
+
+  .palette-block {
+    width: 94vw;
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
+
+  .palette-name-h5 {
+    width: 47vw;
+  }
+
+  .palette-colors-holder {
+    width: 47vw;
+  }
+
+  .generate-button, .save-palette-button {
+    width: 100%;
+  }
 }

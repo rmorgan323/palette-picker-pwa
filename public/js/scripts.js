@@ -111,13 +111,16 @@ buildFetchBody = (palId, projId, name, c1, c2, c3, c4, c5) => {
 const deletePaletteByPaletteId = async (id) => {
   const palettes = await fetch(`/api/v1/palettes/${id}`, {
     method: 'DELETE',
-    he      'Content-Type': 'application/json'
-aders: {
+    headers: {
+      'Content-Type': 'application/json' 
     }
   });
   const jsonPalettes = await palettes.json();
 
-  return jsonPalettespickNewColors = () => {
+  return jsonPalettes;
+}
+
+pickNewColors = () => {
   const brightnessArray = ["#000", "#fff"];
 
   for(let i = 1; i <= 5; i++) {
@@ -368,7 +371,7 @@ generateRandomHexCode = () => {
 
 getCurrentProjectId = () => {
   const id = $('select').find(':selected').attr('data-id');
-
+  console.log($('select').find(':selected'))
   return id;
 }
 
