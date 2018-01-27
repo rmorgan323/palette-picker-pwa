@@ -43,12 +43,13 @@ app.post('/api/v1/projects', async (request, response) => {
   const nameCheck = await database('projects').where('project_name', newProject.project_name).select();
   
   if (Object.keys(nameCheck).length) {
-    return response.sendStatus(400).send({ error: 'Name taken' })
+    return response.status(400).send({ error: 'Name taken' })
   }
 
-  if (newProject) {
+  if (newProject.project_name) {
     const newId = await database('projects').returning('id').insert(newProject)
     const objToReturn = await database('projects').select()
+
     return response.status(201).json(objToReturn)
   } else {
     return response.status(422).send({
@@ -59,30 +60,19 @@ app.post('/api/v1/projects', async (request, response) => {
 
 ///*///  CREATE NEW PALETTE  ///*///
 app.post('/api/v1/palettes', async (request, response) => {
-  const newPalette = request.body;
+  const result = ['project_id', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5'].every(prop => {
+    return request.body.hasOwnProperty(prop);
+  })
 
-  if (newPalette) {
+  if(result) {
+    const newPalette = request.body;
     const newId = await database('palettes').returning('id').insert(newPalette)
     const objToReturn = await database('palettes').where('id', newId[0]).select()
+
     return response.status(201).json(objToReturn[0])
   } else {
-    return response.status(422).send({
-      error: "Palette Object Required"
-    })
-  }
-});
-
-///*///  CREATE NEW PALETTE  ///*///
-app.post('/api/v1/palettes', async (request, response) => {
-  const newPalette = request.body;
-
-  if (newPalette) {
-    const newId = await database('palettes').returning('id').insert(newPalette)
-    const objToReturn = await database('palettes').where('id', newId[0]).select()
-    return response.status(201).json(objToReturn[0])
-  } else {
-    return response.status(422).send({
-      error: "Palette Object Required"
+    return response.status(422).json({
+      error: 'You are missing properties'
     })
   }
 });
@@ -109,7 +99,6 @@ app.put('/api/v1/palettes', async (request, response) => {
     await database('palettes').where('id', id).update(updatePalette)
     return response.status(201).json(updatePalette)
   } else {
-    console.log(response)
     return response.status(422).send({
       error: "Palette Id Required"
     })
@@ -119,16 +108,16 @@ app.put('/api/v1/palettes', async (request, response) => {
 ///*///  DELETE PROJECT BY ID ///*///
 app.delete('/api/v1/projects/:projId', async (request, response) => {
   const { projId } = request.params;
-
-  if (projId) {
-    await database('palettes').where('project_id', projId).delete()
+  const deletedProj = await database('palettes').where('project_id', projId).delete()
+    
+  if (deletedProj) {
     await database('projects').where('id', projId).delete()
-    return response.send({
+    return response.status(200).send({
       success: `Project id ${projId} deleted`
     })
   } else {
     return response.status(422).send({
-      error: "Project not found"
+      error: `Project id ${projId} not found`
     })
   }
 });
@@ -136,15 +125,16 @@ app.delete('/api/v1/projects/:projId', async (request, response) => {
 ///*///  DELETE PALETTE BY ID ///*///
 app.delete('/api/v1/palettes/:id', async (request, response) => {
   const { id } = request.params;
-
-  if (id) {
+  const deletedPalette = await database('palettes').where('id', id).select()
+  
+  if (deletedPalette.length) {
     await database('palettes').where('id', id).delete()
-    return response.send({
+    return response.status(200).send({
       success: `Palette id ${id} deleted`
     })
   } else {
     return response.status(422).send({
-      error: "Palette not found"
+      error: `Palette id ${id} not found`
     })
   }
 });
