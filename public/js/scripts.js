@@ -111,18 +111,13 @@ buildFetchBody = (palId, projId, name, c1, c2, c3, c4, c5) => {
 const deletePaletteByPaletteId = async (id) => {
   const palettes = await fetch(`/api/v1/palettes/${id}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json'
+    he      'Content-Type': 'application/json'
+aders: {
     }
   });
   const jsonPalettes = await palettes.json();
 
-  return jsonPalettes;
-}
-
-//////////  CREATE FUNCTIONS  //////////
-
-pickNewColors = () => {
+  return jsonPalettespickNewColors = () => {
   const brightnessArray = ["#000", "#fff"];
 
   for(let i = 1; i <= 5; i++) {
