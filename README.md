@@ -5,3 +5,5 @@ Palette Picker is a simple app built for Turing School of Software & Design that
 The frontend is built using jquery.  The backend is in Node.js/Express/Postgres/Knex.  The styling is my own.  Mobile styling is included.
 
 To see the live version, visit: https://palette-picker-rmorgan323.herokuapp.com/
+
+![screenshot](palette-picker-ss.png)
