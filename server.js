@@ -15,9 +15,20 @@ app.listen(app.get('port'), () => {                                             
   console.log(`Palette Picker running on localhost:${app.get('port')}.`);
 });
 
-app.get('*', (request, response) => {
-  response.redirect('https://' + request.url)
-})
+// app.get('*', (request, response) => {
+//   if (request.protocol !== 'https') {
+//     response.redirect('https://' + request.url)
+//   }
+// })
+
+const requireHTTPS = (request, response, next) => {
+  if (request.headers['x-forwarded-proto'] !== 'https') {
+    return response.redirect('https://' + request.get('hots') + request.url);
+  }
+  next();
+};
+
+app.use(requireHTTPS); 
 
 ///*///  GET ALL PROJECTS  ///*///
 app.get('/api/v1/projects', (request, response) => {                            //  GET all projects
