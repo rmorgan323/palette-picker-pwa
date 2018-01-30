@@ -15,6 +15,10 @@ app.listen(app.get('port'), () => {                                             
   console.log(`Palette Picker running on localhost:${app.get('port')}.`);
 });
 
+app.get('*', (request, response) => {
+  response.redirect('https://' + request.url)
+})
+
 ///*///  GET ALL PROJECTS  ///*///
 app.get('/api/v1/projects', (request, response) => {                            //  GET all projects
   database('projects').select()                                                 //  Goes to postgres database and selects all projects
