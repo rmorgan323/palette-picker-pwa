@@ -6,12 +6,12 @@ const environment = process.env.NODE_ENV || 'development';                      
 const configuration = require('./knexfile')[environment];                       //  Pulls in the knexfile and passes in correct environment
 const database = require('knex')(configuration);                                //  Connects database to knex
 
-
+// eslint-disable-next-line no-unused-vars
 const requireHTTPS = (request, response, next) => {
   if (request.headers['x-forwarded-proto'] !== 'https') {
     return response.redirect('https://' + request.get('host') + request.url);
   }
-  next();
+  next();  
 };
 
 // app.use(requireHTTPS);   // Comment this line in for production
@@ -22,6 +22,7 @@ app.use(bodyParser.json());                                                     
 app.use(bodyParser.urlencoded({ extended: true }));                             //  Tells the app to use body-parser for HTML
 
 app.listen(app.get('port'), () => {                                             //  Sets port to the port being used in line 9 and console logs that port
+  // eslint-disable-next-line no-console
   console.log(`Palette Picker running on localhost:${app.get('port')}.`);
 });
 
@@ -32,7 +33,7 @@ app.get('/api/v1/projects', (request, response) => {                            
       response.status(200).json(projects);
     })
     .catch((error) => {                                                         //  If GET is not successful, returns a 500 and the error
-      response.status(500).json({ error })                                      
+      response.status(500).json({ error });                                      
     });
 });
 
@@ -43,7 +44,7 @@ app.get('/api/v1/palettes', (request, response) => {                            
       response.status(200).json(palettes);                                     
     })
     .catch((error) => {                                                         //  If GET is not successful, returns a 500 and the error
-      response.status(500).json({ error })              
+      response.status(500).json({ error });              
     });
 });
 
@@ -53,18 +54,18 @@ app.post('/api/v1/projects', async (request, response) => {                     
   const nameCheck = await database('projects').where('project_name', newProject.project_name).select();     //  Goes to database and finds if the project name already exists
   
   if (Object.keys(nameCheck).length) {                                          //  If project name exists, returns a 400 error along with message
-    return response.status(400).send({ error: 'Name taken' })   
+    return response.status(400).send({ error: 'Name taken' });   
   }
 
   if (newProject.project_name) {                                                //  If request body includes a project name, inserts name into project
-    const newId = await database('projects').returning('id').insert(newProject) 
-    const objToReturn = await database('projects').select()                     //  Assigns all projects to variable
+    await database('projects').returning('id').insert(newProject); 
+    const objToReturn = await database('projects').select();                     //  Assigns all projects to variable
 
-    return response.status(201).json(objToReturn)                               //  Returns all projects
+    return response.status(201).json(objToReturn)  ;                             //  Returns all projects
   } else {
     return response.status(422).send({                                          //  If request body does not include a project name, return 422 and message
-      error: "Project Name Required"
-    })
+      error: 'Project Name Required'
+    });
   }
 });
 
@@ -72,18 +73,18 @@ app.post('/api/v1/projects', async (request, response) => {                     
 app.post('/api/v1/palettes', async (request, response) => {                     //  POST new palette
   const result = ['project_id', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5'].every(prop => {      //  Checks if all required props have been included in body of request.  Returns true or false
     return request.body.hasOwnProperty(prop);
-  })
+  });
 
   if(result) {                                                                  //  If required props are present, inserts new palette into database
     const newPalette = request.body;
-    const newId = await database('palettes').returning('id').insert(newPalette)
-    const objToReturn = await database('palettes').where('id', newId[0]).select()
+    const newId = await database('palettes').returning('id').insert(newPalette);
+    const objToReturn = await database('palettes').where('id', newId[0]).select();
 
-    return response.status(201).json(objToReturn[0])                            //  Returns new palette with id created in database
+    return response.status(201).json(objToReturn[0]);                            //  Returns new palette with id created in database
   } else {
     return response.status(422).json({                                          //  If any required props are missing, returns a 422 with message
       error: 'You are missing properties'   
-    })
+    });
   }
 });
 
@@ -96,7 +97,7 @@ app.get('/api/v1/palettes/:project_id', async (request, response) => {          
       return response.status(200).json(palettes);                               //  Returns palettes
     })
     .catch((error) => {                                                          
-      return response.status(500).json({ error })                               //  Returns a 500 with message if not found
+      return response.status(500).json({ error });                               //  Returns a 500 with message if not found
     });
 });
 
@@ -106,46 +107,46 @@ app.put('/api/v1/palettes', async (request, response) => {                      
   const updatePalette = request.body;                                           //  Assigns all of request body to a variable
 
   if (id) {                                                                     //  If id has been included, uses it to find palette in database, and then updates palette
-    await database('palettes').where('id', id).update(updatePalette)
-    return response.status(201).json(updatePalette)                             //  Returns status 201 and updated palette information
+    await database('palettes').where('id', id).update(updatePalette);
+    return response.status(201).json(updatePalette);                             //  Returns status 201 and updated palette information
   } else {
     return response.status(422).send({                                          //  If palette id has not been included, returns 422 error with message
-      error: "Palette Id Required"
-    })
+      error: 'Palette Id Required'
+    });
   }
 });
 
 ///*///  DELETE PROJECT BY ID ///*///
 app.delete('/api/v1/projects/:projId', async (request, response) => {           //  DELETE project by id
   const { projId } = request.params;                                            //  Assigns project id from params to a variable
-  const deletedProj = await database('palettes').where('project_id', projId).delete()     //  First, deletes palettes belonging to project in database and assigns deleted project to variable
+  const deletedProj = await database('palettes').where('project_id', projId).delete();     //  First, deletes palettes belonging to project in database and assigns deleted project to variable
     
   if (deletedProj) {                                                            //  If it was able to find project, then deletes project as well
-    await database('projects').where('id', projId).delete()
+    await database('projects').where('id', projId).delete();
     return response.status(200).send({                                          //  Returns status 200 with message
       success: `Project id ${projId} deleted`
-    })
+    });
   } else {
     return response.status(422).send({                                          //  If there was no project with the matching id in database, returns a 422 with error
       error: `Project id ${projId} not found`
-    })
+    });
   }
 });
 
 ///*///  DELETE PALETTE BY ID ///*///
 app.delete('/api/v1/palettes/:id', async (request, response) => {               //  DELETE palettes by palette id
   const { id } = request.params;                                                //  Assigns palette id from params to a variable
-  const deletedPalette = await database('palettes').where('id', id).select()    //  Finds palette to be deleted in database and assigns to a variable
+  const deletedPalette = await database('palettes').where('id', id).select();    //  Finds palette to be deleted in database and assigns to a variable
   
   if (deletedPalette.length) {                                                  //  If there is a palette to delete, deletes it
-    await database('palettes').where('id', id).delete()
+    await database('palettes').where('id', id).delete();
     return response.status(200).send({                                          //  Returns 200 with message
       success: `Palette id ${id} deleted`
-    })
+    });
   } else {
     return response.status(422).send({                                          //  If there is not a palette to delete, returns 422 error with message
       error: `Palette id ${id} not found`
-    })
+    });
   }
 });
 

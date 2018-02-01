@@ -1,29 +1,49 @@
 module.exports = {
-  "parser": "babel-eslint",
-  "extends": ["airbnb/base", "eslint:recommended"],
-  "env": {
-    "browser": true,
-    "mocha": true,
-    "node": true,
-    "es6": true,
-    "jquery": true
-  },
-  "rules": {
-    "eol-last": [0],
-    "no-mixed-requires": [0],
-    "no-underscore-dangle": [0],
-    "no-unused-vars": "error",
-    "eqeqeq": ["error", "always"],
-    "indent": ["warn", 2],
-    "semi": ["error", "always"],
-    "array-bracket-spacing": ["error", "never"],
-    "block-spacing": ["error", "always"],
-    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
-    "comma-dangle": ["error", "never"],
-    "comma-spacing": ["error", { "before": false, "after": true }],
-    "comma-style": ["error", "last"],
-    "computed-property-spacing": ["error", "never"],
-    "keyword-spacing": ["error", { "before": true, "after": true }],
-    "max-depth": ["warn", 4]
-  },
-}
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true,
+        "mocha": true,
+        "jquery": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "arrowFunctions": true,
+            "defaultParameters": true,
+            "destructuring": true
+        },
+        "ecmaVersion": 8,
+        "sourceType": "module"
+    },
+    "rules": {
+        "eqeqeq": [
+            "error", 
+            "always"
+        ],
+        "indent": [
+            "error",
+            2
+        ],
+        "newline-after-var": [ 
+            "error", 
+            "always" 
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    },
+    "globals": {
+        "expect": true
+    }
+};
