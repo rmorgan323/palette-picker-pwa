@@ -30,6 +30,15 @@ const requireHTTPS = (request, response, next) => {
 
 app.use(requireHTTPS); 
 
+app.set('port', process.env.PORT || 3000);                                      //  Sets port initially to 3000 but allows it to be changed if in a production environment
+app.use(express.static(path.join(__dirname, 'public')));                        //  Tells the app where to find static files
+app.use(bodyParser.json());                                                     //  Tells the app to use body-parser for json
+app.use(bodyParser.urlencoded({ extended: true }));                             //  Tells the app to use body-parser for HTML
+
+app.listen(app.get('port'), () => {                                             //  Sets port to the port being used in line 9 and console logs that port
+  console.log(`Palette Picker running on localhost:${app.get('port')}.`);
+});
+
 ///*///  GET ALL PROJECTS  ///*///
 app.get('/api/v1/projects', (request, response) => {                            //  GET all projects
   database('projects').select()                                                 //  Goes to postgres database and selects all projects

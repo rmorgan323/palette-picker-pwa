@@ -63,7 +63,7 @@ describe('API Routes', () => {
   })
 
   it('should get all palettes with certain project_ids', () => {
-    let id;
+    var id;
 
     return chai.request(server)
     .get('/api/v1/projects')
