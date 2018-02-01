@@ -6,29 +6,15 @@ const environment = process.env.NODE_ENV || 'development';                      
 const configuration = require('./knexfile')[environment];                       //  Pulls in the knexfile and passes in correct environment
 const database = require('knex')(configuration);                                //  Connects database to knex
 
-app.set('port', process.env.PORT || 3000);                                      //  Sets port initially to 3000 but allows it to be changed if in a production environment
-app.use(express.static(path.join(__dirname, 'public')));                        //  Tells the app where to find static files
-app.use(bodyParser.json());                                                     //  Tells the app to use body-parser for json
-app.use(bodyParser.urlencoded({ extended: true }));                             //  Tells the app to use body-parser for HTML
-
-app.listen(app.get('port'), () => {                                             //  Sets port to the port being used in line 9 and console logs that port
-  console.log(`Palette Picker running on localhost:${app.get('port')}.`);
-});
-
-// app.get('*', (request, response) => {
-//   if (request.protocol !== 'https') {
-//     response.redirect('https://' + request.url)
-//   }
-// })
 
 const requireHTTPS = (request, response, next) => {
   if (request.headers['x-forwarded-proto'] !== 'https') {
-    return response.redirect('https://' + request.get('hots') + request.url);
+    return response.redirect('https://' + request.get('host') + request.url);
   }
   next();
 };
 
-app.use(requireHTTPS); 
+app.use(requireHTTPS);   // Comment this line in for production
 
 app.set('port', process.env.PORT || 3000);                                      //  Sets port initially to 3000 but allows it to be changed if in a production environment
 app.use(express.static(path.join(__dirname, 'public')));                        //  Tells the app where to find static files
