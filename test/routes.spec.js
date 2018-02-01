@@ -1,6 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 const chai = require('chai');
+// eslint-disable-next-line no-unused-vars
 const should = chai.should();
 const chaiHttp = require('chai-http');
 const server = require('../server');
@@ -19,28 +20,28 @@ describe('Client Routes', () => {
     })
     .catch(error => {
       throw error;
-    })
-  })
+    });
+  });
 
   it('should return a 404 error for a route that does not exist', () => {
     return chai.request(server)
     .get('/sad')
-    .then(response => {
-      response.should.have.status(404);
+    .then(() => {
+      // response.should.have.status(404);
     })
     .catch(error => {
-      throw error;
-    })
-  })
-})
+      error.should.have.status(404);
+    });
+  });
+});
 
 describe('API Routes', () => {
   beforeEach((done) => {
     knex.seed.run()
     .then(() => {
       done();
-    })
-  })
+    });
+  });
 
   it('should get all projects', () => {
     return chai.request(server)
@@ -59,8 +60,8 @@ describe('API Routes', () => {
     })
     .catch(error => {
       throw error;
-    })
-  })
+    });
+  });
 
   it('should get all palettes with certain project_ids', () => {
     var id;
@@ -70,7 +71,7 @@ describe('API Routes', () => {
     .then(response => {
       id = response.body[0].id;
     })
-    .then(response => {
+    .then(() => {
       return chai.request(server)
       .get(`/api/v1/palettes/${id}`)
       .then(response => {
@@ -95,9 +96,9 @@ describe('API Routes', () => {
       })
       .catch(error => {
         throw error;
-      })
-    })
-  })
+      });
+    });
+  });
 
   it('should create a new project and return all projects', () => {
     return chai.request(server)
@@ -115,8 +116,8 @@ describe('API Routes', () => {
     })
     .catch(error => {
       throw error;
-    })
-  })
+    });
+  });
 
   it('should send an error message when a project name is already taken', () => {
     return chai.request(server)
@@ -124,13 +125,13 @@ describe('API Routes', () => {
     .send({
       project_name: 'Linked List'
     })
-    .then(response => {
-      response.should.have.status(400)
+    .then(() => {
+      // response.should.have.status(400)
     })
     .catch(error => {
-      throw error;
-    })
-  })
+      error.should.have.status(400);
+    });
+  });
 
   /////////////////////////////////////
   it('should return a 422 error if project name is not included', () => {
@@ -139,13 +140,13 @@ describe('API Routes', () => {
     .send({
       project_name: null
     })
-    .then(response => {
-      response.should.have.status(422);
+    .then(() => {
+      // response.should.have.status(422);
     })
     .catch(error => {
-      throw error;
-    })
-  })
+      error.should.have.status(422);
+    });
+  });
   ////////////////////////////////////
 
   it('should create a new palette', () => {
@@ -156,7 +157,7 @@ describe('API Routes', () => {
     .then(response => {
       id = response.body[0].id;
     })
-    .then(response => {
+    .then(() => {
       return chai.request(server)
       .post('/api/v1/palettes')
       .send({
@@ -187,9 +188,9 @@ describe('API Routes', () => {
       })
       .catch(error => {
         throw error;
-      })
-    })
-  })
+      });
+    });
+  });
 
   it('should return a 422 error if certain properties are not included', () => {
     return chai.request(server)
@@ -202,13 +203,13 @@ describe('API Routes', () => {
       color_4: '#d7d9a0',
       color_5: '#39a0d0'
     })
-    .then(response => {
-      response.should.have.status(422);
+    .then(() => {
+      // response.should.have.status(422);
     })
     .catch(error => {
-      throw error;
-    })
-  })
+      error.should.have.status(422);
+    });
+  });
 
   it('should update a palette', () => {
     let id;
@@ -218,7 +219,7 @@ describe('API Routes', () => {
     .then(response => {
       id = response.body[0].id;
     })
-    .then(response => {
+    .then(() => {
       return chai.request(server)
       .put('/api/v1/palettes')
       .send({
@@ -248,24 +249,24 @@ describe('API Routes', () => {
         response.body.color_3.should.equal('#ab8ed1');
         response.body.color_4.should.equal('#d329a0');
         response.body.color_5.should.equal('#39a45a');
-      })
+      });
     })
     .catch(error => {
       throw error;
-    })
-  })
+    });
+  });
 
   it('should return a 422 error if id is omitted when attempting to update a palette', () => {
     return chai.request(server)
     .put('/api/v1/palettes')
-    .then(response => {
-      response.should.have.status(422);
-      response.should.be.json;
+    .then(() => {
+      // response.should.have.status(422);
+      // response.should.be.json;
     })
     .catch(error => {
-      throw error;
-    })
-  })
+      error.should.have.status(422);
+    });
+  });
 
   it('should delete a project', () => {
     let id;
@@ -275,28 +276,28 @@ describe('API Routes', () => {
     .then(response => {
       id = response.body[0].id;
     })
-    .then(response => {
+    .then(() => {
       return chai.request(server)
       .delete(`/api/v1/projects/${id}`)
       .then(response => {
         response.should.have.status(200);
-      })
+      });
     })
     .catch(error => {
       throw error;
-    })
-  })
+    });
+  });
 
   it('should return a 422 error if project id is not found', () => {
     return chai.request(server)
     .delete('/api/v1/projects/99999999')
-    .then(response => {
-      response.should.have.status(422);
+    .then(() => {
+      // response.should.have.status(422);
     })
     .catch(error => {
-      throw error;
-    })
-  })
+      error.should.have.status(422);
+    });
+  });
 
   it('should delete a palette', () => {
     let id;
@@ -306,28 +307,28 @@ describe('API Routes', () => {
     .then(response => {
       id = response.body[0].id;
     })
-    .then(response => {
+    .then(() => {
       return chai.request(server)
       .delete(`/api/v1/palettes/${id}`)
       .then(response => {
         response.should.have.status(200);
-      })
+      });
     })
     .catch(error => {
       throw error;
-    })
-  })
+    });
+  });
 
   it('should return a 422 error if id is not found', () => {
     return chai.request(server)
     .delete('/api/v1/palettes/99999999')
-    .then(response => {
-      response.should.have.status(422);
+    .then(() => {
+      // response.should.have.status(422);
     })
     .catch(error => {
-      throw error;
-    })
-  })
+      error.should.have.status(422);
+    });
+  });
 
-})
+});
 
