@@ -10,4 +10,5 @@ environment:
 
 database:
   override:
-    - knex migrate: latest
+    - sudo -u postgresql psql -p 5432 -c "create database palettepicker_test;"
+    - knex migrate:latest
