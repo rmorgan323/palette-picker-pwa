@@ -16,3 +16,9 @@ database:
 test:
   override:
     - mocha --exit
+
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: palette-picker-rmorgan323
