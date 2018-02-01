@@ -14,7 +14,7 @@ const requireHTTPS = (request, response, next) => {
   next();
 };
 
-app.use(requireHTTPS);   // Comment this line in for production
+// app.use(requireHTTPS);   // Comment this line in for production
 
 app.set('port', process.env.PORT || 3000);                                      //  Sets port initially to 3000 but allows it to be changed if in a production environment
 app.use(express.static(path.join(__dirname, 'public')));                        //  Tells the app where to find static files
